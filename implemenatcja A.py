@@ -1,3 +1,16 @@
+import pygame, sys
+from pygame.locals import *
+
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (129, 187, 129)
+GRAY = (225, 225, 225)
+RED = (255, 0, 0)
+DISPLAY_SURFACE = pygame.display.set_mode((10 * 80, 10 * 60))
+DISPLAY_SURFACE.fill(GRAY)
+
+
+
 class Node():
     """A node class for A* Pathfinding"""
 
@@ -98,6 +111,7 @@ def astar(maze, start, end):
 
 def main():
 
+
     maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
@@ -107,13 +121,34 @@ def main():
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+   # pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 50, 50)) #wspolrzedne x,y; wielkosc prostokątu
+    wartosci_i = 0
+    wartosci_j = 0
+    for i in maze:
+        wartosci_j = 0
+        for j in i:
+            if j == 1:
+                pygame.draw.rect(DISPLAY_SURFACE, BLACK, (wartosci_j, wartosci_i, 30, 30))
+            else:
+                pygame.draw.rect(DISPLAY_SURFACE, GREEN, (wartosci_j, wartosci_i, 30, 30))
+
+            wartosci_j = wartosci_j + 35
+        wartosci_i = wartosci_i + 35
 
     start = (0, 0)
     end = (7, 6)
 
     path = astar(maze, start, end)
     print(path)
+    for krotka in path:
+        pygame.draw.rect(DISPLAY_SURFACE, RED, (krotka[1]*35,krotka[0]*35, 30, 30))
+    while True:
+        for event in pygame.event.get():
+            if event.type == QUIT:
+                pygame.quit()
+                sys.exit()
+        pygame.display.update()
 
 
 if __name__ == '__main__':
