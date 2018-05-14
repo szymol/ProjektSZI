@@ -1,13 +1,20 @@
 import pygame, sys
 from pygame.locals import *
 
+
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 GREEN = (129, 187, 129)
 GRAY = (225, 225, 225)
 RED = (255, 0, 0)
-DISPLAY_SURFACE = pygame.display.set_mode((10 * 80, 10 * 60))
+DISPLAY_SURFACE = pygame.display.set_mode((800, 600))
 DISPLAY_SURFACE.fill(GRAY)
+wozek = pygame.image.load("wozek.jpg")
+screen = pygame.display.get_surface()
+kratka = pygame.image.load("kratka.png")
+zielona = pygame.image.load("zielona.png")
+
+
 
 
 
@@ -68,7 +75,7 @@ def astar(maze, start, end):
 
         # Generate children
         children = []
-        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0), (-1, -1), (-1, 1), (1, -1), (1, 1)]: # Adjacent squares
+        for new_position in [(0, -1), (0, 1), (-1, 0), (1, 0)]: # Adjacent squares
 
             # Get node position
             node_position = (current_node.position[0] + new_position[0], current_node.position[1] + new_position[1])
@@ -107,21 +114,34 @@ def astar(maze, start, end):
 
             # Add the child to the open list
             open_list.append(child)
-
-
+            
+#jazda do celu
+def jazda(przedmiot,gdzie):
+    screen.blit(przedmiot,(gdzie[1]*50,gdzie[0]*50))
+    pygame.display.update()
+    pygame.time.wait(200)
+# zamiana przejechanej drogi na czerwona kratke    
+def jazda1(przedmiot1,gdzie1):
+    screen.blit(przedmiot1,(gdzie1[1]*50,gdzie1[0]*50))
+    pygame.display.update()
+    
+    
+    
 def main():
 
-
-    maze = [[0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0],
-            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    
+    maze = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
    # pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 50, 50)) #wspolrzedne x,y; wielkosc prostokątu
     wartosci_i = 0
     wartosci_j = 0
@@ -129,27 +149,45 @@ def main():
         wartosci_j = 0
         for j in i:
             if j == 1:
-                pygame.draw.rect(DISPLAY_SURFACE, BLACK, (wartosci_j, wartosci_i, 30, 30))
+                pygame.draw.rect(DISPLAY_SURFACE, BLACK, (wartosci_j, wartosci_i, 49, 49))
             else:
-                pygame.draw.rect(DISPLAY_SURFACE, GREEN, (wartosci_j, wartosci_i, 30, 30))
+                pygame.draw.rect(DISPLAY_SURFACE, GREEN, (wartosci_j, wartosci_i, 49, 49))
 
-            wartosci_j = wartosci_j + 35
-        wartosci_i = wartosci_i + 35
+            wartosci_j = wartosci_j + 50
+        wartosci_i = wartosci_i + 50
 
-    start = (0, 0)
-    end = (7, 6)
-
+    start = (4, 0)
+    end = (8, 15)
+    
     path = astar(maze, start, end)
     print(path)
+    
+    # JAZDA DO PRZODU
     for krotka in path:
-        pygame.draw.rect(DISPLAY_SURFACE, RED, (krotka[1]*35,krotka[0]*35, 30, 30))
+        pygame.draw.rect(DISPLAY_SURFACE, RED, (krotka[1]*50,krotka[0]*50, 49, 49))
+        jazda(wozek,krotka)
+        jazda1(kratka,krotka) # kratka - > zdjęcie, czerwonej kratki
+        
+    path.reverse() # obrót listy path
+    
+    #JAZDA POWROTNA
+    for back in path:
+        jazda(wozek,back)
+        jazda1(zielona,back)
+    
+        
+    
+            
+        
     while True:
         for event in pygame.event.get():
             if event.type == QUIT:
                 pygame.quit()
                 sys.exit()
-        pygame.display.update()
+        
 
 
 if __name__ == '__main__':
     main()
+    
+
