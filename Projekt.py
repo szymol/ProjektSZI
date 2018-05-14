@@ -25,7 +25,7 @@ class Node():
         self.parent = parent
         self.position = position
 
-        self.g = 0
+        self.g = 0 #ustawiamy koszt na 0
         self.h = 0
         self.f = 0
 
@@ -102,7 +102,7 @@ def astar(maze, start, end):
                 if child == closed_child:
                     continue
 
-            # Create the f, g, and h values
+            # Create the f, g, and h values Funkcja kosztów 
             child.g = current_node.g + 1
             child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
             child.f = child.g + child.h
