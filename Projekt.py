@@ -7,7 +7,7 @@ WHITE = (255, 255, 255)
 GREEN = (129, 187, 129)
 GRAY = (225, 225, 225)
 RED = (255, 0, 0)
-DISPLAY_SURFACE = pygame.display.set_mode((800, 600))
+DISPLAY_SURFACE = pygame.display.set_mode((850, 650))
 DISPLAY_SURFACE.fill(GRAY)
 wozek = pygame.image.load("wozek.jpg")
 screen = pygame.display.get_surface()
@@ -25,7 +25,7 @@ class Node():
         self.parent = parent
         self.position = position
 
-        self.g = 0 #ustawiamy koszt na 0
+        self.g = 0
         self.h = 0
         self.f = 0
 
@@ -102,10 +102,11 @@ def astar(maze, start, end):
                 if child == closed_child:
                     continue
 
-            # Create the f, g, and h values Funkcja kosztów 
+            # Create the f, g, and h values
             child.g = current_node.g + 1
-            child.h = ((child.position[0] - end_node.position[0]) ** 2) + ((child.position[1] - end_node.position[1]) ** 2)
+            child.h = ((abs(child.position[0] - end_node.position[0]))) + ((abs(child.position[1] - end_node.position[1])) )
             child.f = child.g + child.h
+            
 
             # Child is already in the open list
             for open_node in open_list:
@@ -114,7 +115,8 @@ def astar(maze, start, end):
 
             # Add the child to the open list
             open_list.append(child)
-            
+        
+        
 #jazda do celu
 def jazda(przedmiot,gdzie):
     screen.blit(przedmiot,(gdzie[1]*50,gdzie[0]*50))
@@ -129,19 +131,18 @@ def jazda1(przedmiot1,gdzie1):
     
 def main():
 
-    
-    maze = [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+    maze = [[0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
+            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0]]
    # pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 50, 50)) #wspolrzedne x,y; wielkosc prostokątu
     wartosci_i = 0
     wartosci_j = 0
@@ -157,7 +158,7 @@ def main():
         wartosci_i = wartosci_i + 50
 
     start = (4, 0)
-    end = (8, 15)
+    end = (11, 12)
     
     path = astar(maze, start, end)
     print(path)
@@ -175,7 +176,8 @@ def main():
         jazda(wozek,back)
         jazda1(zielona,back)
     
-        
+if __name__ == '__main__':
+    main()        
     
             
         
@@ -187,7 +189,6 @@ def main():
         
 
 
-if __name__ == '__main__':
-    main()
+
     
 
