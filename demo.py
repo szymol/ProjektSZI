@@ -51,7 +51,8 @@ def astar(maze, start, end):
 
     # Loop until you find the end
     while len(open_list) > 0:
-
+        for i in open_list:
+            jazda1(kratka,i.position)
         # Get the current node
         current_node = open_list[0]
         current_index = 0
@@ -132,18 +133,18 @@ def jazda1(przedmiot1,gdzie1):
     
 def main():
 
-    maze = [[0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+    maze = [[0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
+            [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,0],
+            [0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0,0],
             [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
             [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
             [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
             [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
-            [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,0],
-            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
-            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
-            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
-            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0],
-            [0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0]]
+            [0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 1, 0,0]]
    # pygame.draw.rect(DISPLAY_SURFACE, BLACK, (0, 0, 50, 50)) #wspolrzedne x,y; wielkosc prostokątu
     wartosci_i = 0
     wartosci_j = 0
@@ -164,18 +165,18 @@ def main():
     path = astar(maze, start, end)
     print(path)
     
-    # JAZDA DO PRZODU
-    for krotka in path:
-        pygame.draw.rect(DISPLAY_SURFACE, RED, (krotka[1]*50,krotka[0]*50, 49, 49))
-        jazda(wozek,krotka)
-        jazda1(kratka,krotka) # kratka - > zdjęcie, czerwonej kratki
-        
-    path.reverse() # obrót listy path
-    
-    #JAZDA POWROTNA
-    for back in path:
-        jazda(wozek,back)
-        jazda1(zielona,back)
+##    # JAZDA DO PRZODU
+##    for krotka in path:
+##        pygame.draw.rect(DISPLAY_SURFACE, RED, (krotka[1]*50,krotka[0]*50, 49, 49))
+##        jazda(wozek,krotka)
+##        jazda1(kratka,krotka) # kratka - > zdjęcie, czerwonej kratki
+##        
+##    path.reverse() # obrót listy path
+##    
+##    #JAZDA POWROTNA
+##    for back in path:
+##        jazda(wozek,back)
+##        jazda1(zielona,back)
     
 if __name__ == '__main__':
     main()        
